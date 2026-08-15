@@ -10,3 +10,4 @@ mysql-connector-python
 bcrypt
 PyMySQL
 cryptography
+DBUtils
