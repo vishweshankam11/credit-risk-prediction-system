@@ -21,132 +21,633 @@ st.set_page_config(
 # ============================================================
 st.markdown("""
 <style>
-.stApp{background:#070d16;color:#f8fafc}
-.main{background:#070d16}
-.block-container{max-width:1400px;padding:4.5rem 2.2rem 2.5rem}
-#MainMenu,footer{visibility:hidden}
-hr{border-color:#334155!important}
+/* =========================================================
+   GLOBAL APP
+   ========================================================= */
 
-section[data-testid="stSidebar"]{
-    background:linear-gradient(180deg,#172235 0%,#101827 100%);
-    border-right:1px solid #334155;min-width:250px
-}
-section[data-testid="stSidebar"]>div{background:transparent}
-section[data-testid="stSidebar"] p{color:#94a3b8}
-section[data-testid="stSidebar"] hr{border-color:#334155!important}
-
-.sidebar-brand{text-align:center;padding:8px 0 18px}
-.sidebar-shield{font-size:3.4rem;line-height:1;margin-bottom:14px}
-.sidebar-title{color:#f8fafc;font-size:1.35rem;font-weight:800}
-.sidebar-subtitle{color:#7182a0;font-size:1rem;margin-top:8px}
-
-.user-card{
-    background:linear-gradient(135deg,#f8fbff,#dcecff);
-    border:1px solid #60a5fa;border-radius:15px;padding:18px;
-    margin:12px 0;box-shadow:0 8px 25px rgba(0,0,0,.28)
-}
-.user-icon{color:#2563eb;font-size:1.8rem;line-height:1}
-.user-title{color:#1471d9!important;font-size:.95rem;font-weight:800;margin:7px 0}
-.username{
-    display:inline-block;background:#111827;color:#4ade80;
-    padding:5px 9px;border-radius:5px;font-family:monospace;font-weight:700
+.stApp {
+    background: #070d16;
+    color: #f8fafc;
 }
 
-section[data-testid="stSidebar"] .stButton>button{
-    background:rgba(20,30,47,.75);color:#f8fafc;border:1px solid #334155;
-    border-radius:10px;min-height:48px;font-size:.95rem;font-weight:600;
-    transition:.2s;margin-bottom:3px
-}
-section[data-testid="stSidebar"] .stButton>button:hover{
-    background:#1d65d8;border-color:#3b82f6;color:#fff;transform:translateY(-1px)
-}
-section[data-testid="stSidebar"] .stButton>button[kind="primary"]{
-    background:linear-gradient(135deg,#1675ee,#1765d1);
-    border-color:#3987ff;color:#fff
+.main {
+    background: #070d16;
 }
 
-.main-header{padding:.1rem 0 1rem}
-.main-title{font-size:2.35rem;font-weight:800;color:#f8fafc;line-height:1.1}
-.main-subtitle{font-size:1rem;color:#94a3b8;margin-top:12px}
-
-.welcome-banner{
-    background:linear-gradient(90deg,#092c22,#0c3c2c);
-    border:1px solid #198b4b;border-radius:11px;padding:17px 21px;
-    color:#4ade80;font-size:1rem;font-weight:700;margin:4px 0 18px
+/* Main content - expands with available screen width */
+.block-container {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 4.5rem 2.2rem 2.5rem;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
-.metric-card{
-    min-height:132px;border-radius:14px;padding:19px 20px;border:1px solid;
-    box-shadow:0 8px 25px rgba(0,0,0,.22);transition:.2s
+#MainMenu,
+footer {
+    visibility: hidden;
 }
-.metric-card:hover{transform:translateY(-3px);box-shadow:0 13px 32px rgba(0,0,0,.32)}
-.metric-blue{background:linear-gradient(135deg,#f5faff,#dcecff);border-color:#63a5fa}
-.metric-red{background:linear-gradient(135deg,#fff7f7,#ffe2e5);border-color:#fb7185}
-.metric-green{background:linear-gradient(135deg,#f7fff9,#ddf8e4);border-color:#66d88c}
-.metric-purple{background:linear-gradient(135deg,#fbf9ff,#eee5ff);border-color:#b58ae8}
-.metric-title{font-size:.94rem;font-weight:800;margin-bottom:17px}
-.metric-blue .metric-title{color:#1774dc}
-.metric-red .metric-title{color:#dc2626}
-.metric-green .metric-title{color:#15803d}
-.metric-purple .metric-title{color:#7044b8}
-.metric-value{font-size:2rem;font-weight:850;line-height:1;color:#111827}
 
-.content-card{
-    background:linear-gradient(145deg,#111a28,#0d1521);
-    border:1px solid #2e3c50;border-radius:12px;padding:17px 19px;
-    box-shadow:0 8px 25px rgba(0,0,0,.23);margin-top:18px
+hr {
+    border-color: #334155 !important;
 }
-.card-title{color:#f8fafc;font-size:1.2rem;font-weight:800}
-.section-title{font-size:1.35rem;font-weight:800;color:#f8fafc;margin:1rem 0 .8rem}
-.section-description{color:#94a3b8;margin-bottom:1.2rem}
 
-.prediction-table{
-    width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;
-    border:1px solid #334155;border-radius:10px;background:#0e1724;color:#f8fafc
-}
-.prediction-table th{
-    background:#1d2a3d;color:#f8fafc;padding:13px 14px;text-align:left;
-    font-weight:800;border-bottom:1px solid #475569
-}
-.prediction-table td{padding:12px 14px;border-bottom:1px solid #273548;color:#e2e8f0}
-.prediction-table tr:last-child td{border-bottom:none}
-.prediction-table tr:hover td{background:#152237}
-.risk-low-badge,.risk-high-badge{
-    display:inline-block;padding:5px 10px;border-radius:7px;font-weight:800;white-space:nowrap
-}
-.risk-low-badge{background:#064e3b;color:#4ade80}
-.risk-high-badge{background:#651b23;color:#ff7d88}
-.probability-low{color:#4ade80;font-weight:800}
-.probability-high{color:#ff6b76;font-weight:800}
 
-.risk-high{
-    background:linear-gradient(135deg,#450a0a,#7f1d1d);
-    border:1px solid #ef4444;border-radius:16px;padding:1.5rem;text-align:center;color:white
-}
-.risk-low{
-    background:linear-gradient(135deg,#052e16,#14532d);
-    border:1px solid #22c55e;border-radius:16px;padding:1.5rem;text-align:center;color:white
-}
-.risk-percentage{font-size:2.8rem;font-weight:800;margin:.5rem 0}
-.risk-label{font-size:1.15rem;font-weight:800}
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
 
-.info-card{
-    background:linear-gradient(145deg,#111a28,#0d1521);
-    border:1px solid #334155;border-radius:14px;padding:1.2rem;
-    margin-bottom:1rem;color:#e2e8f0;box-shadow:0 5px 20px rgba(0,0,0,.2)
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #172235 0%, #101827 100%);
+    border-right: 1px solid #334155;
+    min-width: 250px;
 }
-.info-card b,.info-card h3{color:#f8fafc}
 
-input,textarea{background:#111827!important;color:#f8fafc!important;border-color:#475569!important}
-div[data-baseweb="select"]>div{background:#111827!important;color:#f8fafc!important;border-color:#475569!important}
-label{color:#dbeafe!important}
-div[data-testid="stDataFrame"]{border:1px solid #334155;border-radius:10px;overflow:hidden}
+section[data-testid="stSidebar"] > div {
+    background: transparent;
+}
 
-.footer{text-align:center;color:#64748b;font-size:.8rem;padding:1.5rem 0}
-.login-logo{text-align:center;margin-top:40px;margin-bottom:20px}
-.login-logo-icon{font-size:4rem}
-.login-title{color:#f8fafc;font-size:2rem;font-weight:800}
-.login-subtitle{color:#94a3b8;font-size:1rem}
+section[data-testid="stSidebar"] p {
+    color: #94a3b8;
+}
+
+section[data-testid="stSidebar"] hr {
+    border-color: #334155 !important;
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+   ========================================================= */
+
+.sidebar-brand {
+    text-align: center;
+    padding: 8px 0 18px;
+}
+
+.sidebar-shield {
+    font-size: 3.4rem;
+    line-height: 1;
+    margin-bottom: 14px;
+}
+
+.sidebar-title {
+    color: #f8fafc;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.sidebar-subtitle {
+    color: #7182a0;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   USER CARD
+   ========================================================= */
+
+.user-card {
+    background: linear-gradient(135deg, #f8fbff, #dcecff);
+    border: 1px solid #60a5fa;
+    border-radius: 15px;
+    padding: 18px;
+    margin: 12px 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .28);
+}
+
+.user-icon {
+    color: #2563eb;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.user-title {
+    color: #1471d9 !important;
+    font-size: .95rem;
+    font-weight: 800;
+    margin: 7px 0;
+}
+
+.username {
+    display: inline-block;
+    background: #111827;
+    color: #4ade80;
+    padding: 5px 9px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SIDEBAR BUTTONS
+   ========================================================= */
+
+section[data-testid="stSidebar"] .stButton > button {
+    background: rgba(20, 30, 47, .75);
+    color: #f8fafc;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    min-height: 48px;
+    font-size: .95rem;
+    font-weight: 600;
+    transition: .2s;
+    margin-bottom: 3px;
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background: #1d65d8;
+    border-color: #3b82f6;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, #1675ee, #1765d1);
+    border-color: #3987ff;
+    color: #fff;
+}
+
+
+/* =========================================================
+   MAIN HEADER
+   ========================================================= */
+
+.main-header {
+    padding: .1rem 0 1rem;
+}
+
+.main-title {
+    font-size: 2.35rem;
+    font-weight: 800;
+    color: #f8fafc;
+    line-height: 1.1;
+}
+
+.main-subtitle {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin-top: 12px;
+}
+
+
+/* =========================================================
+   WELCOME BANNER
+   ========================================================= */
+
+.welcome-banner {
+    background: linear-gradient(90deg, #092c22, #0c3c2c);
+    border: 1px solid #198b4b;
+    border-radius: 11px;
+    padding: 17px 21px;
+    color: #4ade80;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 4px 0 18px;
+}
+
+
+/* =========================================================
+   METRIC CARDS
+   ========================================================= */
+
+.metric-card {
+    min-height: 132px;
+    border-radius: 14px;
+    padding: 19px 20px;
+    border: 1px solid;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .22);
+    transition: .2s;
+}
+
+.metric-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 13px 32px rgba(0, 0, 0, .32);
+}
+
+.metric-blue {
+    background: linear-gradient(135deg, #f5faff, #dcecff);
+    border-color: #63a5fa;
+}
+
+.metric-red {
+    background: linear-gradient(135deg, #fff7f7, #ffe2e5);
+    border-color: #fb7185;
+}
+
+.metric-green {
+    background: linear-gradient(135deg, #f7fff9, #ddf8e4);
+    border-color: #66d88c;
+}
+
+.metric-purple {
+    background: linear-gradient(135deg, #fbf9ff, #eee5ff);
+    border-color: #b58ae8;
+}
+
+.metric-title {
+    font-size: .94rem;
+    font-weight: 800;
+    margin-bottom: 17px;
+}
+
+.metric-blue .metric-title {
+    color: #1774dc;
+}
+
+.metric-red .metric-title {
+    color: #dc2626;
+}
+
+.metric-green .metric-title {
+    color: #15803d;
+}
+
+.metric-purple .metric-title {
+    color: #7044b8;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 850;
+    line-height: 1;
+    color: #111827;
+}
+
+
+/* =========================================================
+   CONTENT CARDS
+   ========================================================= */
+
+.content-card {
+    background: linear-gradient(145deg, #111a28, #0d1521);
+    border: 1px solid #2e3c50;
+    border-radius: 12px;
+    padding: 17px 19px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .23);
+    margin-top: 18px;
+}
+
+.card-title {
+    color: #f8fafc;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.section-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin: 1rem 0 .8rem;
+}
+
+.section-description {
+    color: #94a3b8;
+    margin-bottom: 1.2rem;
+}
+
+
+/* =========================================================
+   PREDICTION TABLE
+   ========================================================= */
+
+.prediction-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background: #0e1724;
+    color: #f8fafc;
+}
+
+.prediction-table th {
+    background: #1d2a3d;
+    color: #f8fafc;
+    padding: 13px 14px;
+    text-align: left;
+    font-weight: 800;
+    border-bottom: 1px solid #475569;
+}
+
+.prediction-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #273548;
+    color: #e2e8f0;
+}
+
+.prediction-table tr:last-child td {
+    border-bottom: none;
+}
+
+.prediction-table tr:hover td {
+    background: #152237;
+}
+
+
+/* =========================================================
+   RISK BADGES
+   ========================================================= */
+
+.risk-low-badge,
+.risk-high-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.risk-low-badge {
+    background: #064e3b;
+    color: #4ade80;
+}
+
+.risk-high-badge {
+    background: #651b23;
+    color: #ff7d88;
+}
+
+.probability-low {
+    color: #4ade80;
+    font-weight: 800;
+}
+
+.probability-high {
+    color: #ff6b76;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   RISK RESULT CARDS
+   ========================================================= */
+
+.risk-high {
+    background: linear-gradient(135deg, #450a0a, #7f1d1d);
+    border: 1px solid #ef4444;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+}
+
+.risk-low {
+    background: linear-gradient(135deg, #052e16, #14532d);
+    border: 1px solid #22c55e;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+}
+
+.risk-percentage {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: .5rem 0;
+}
+
+.risk-label {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   INFO CARD
+   ========================================================= */
+
+.info-card {
+    background: linear-gradient(145deg, #111a28, #0d1521);
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    color: #e2e8f0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .2);
+}
+
+.info-card b,
+.info-card h3 {
+    color: #f8fafc;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+input,
+textarea {
+    background: #111827 !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+}
+
+div[data-baseweb="select"] > div {
+    background: #111827 !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+}
+
+label {
+    color: #dbeafe !important;
+}
+
+div[data-testid="stDataFrame"] {
+    border: 1px solid #334155;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    text-align: center;
+    color: #64748b;
+    font-size: .8rem;
+    padding: 1.5rem 0;
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.login-logo {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.login-logo-icon {
+    font-size: 4rem;
+}
+
+.login-title {
+    color: #f8fafc;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.login-subtitle {
+    color: #94a3b8;
+    font-size: 1rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE MAIN CONTENT
+   ========================================================= */
+
+/* Large screens */
+@media (min-width: 1200px) {
+
+    .block-container {
+        width: 100% !important;
+        max-width: none !important;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+}
+
+
+/* Medium screens */
+@media (max-width: 1199px) {
+
+    .block-container {
+        width: 100% !important;
+        max-width: none !important;
+        padding-left: 1.8rem;
+        padding-right: 1.8rem;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .metric-value {
+        font-size: 1.7rem;
+    }
+}
+
+
+/* Tablet */
+@media (max-width: 768px) {
+
+    .block-container {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 4rem 1rem 2rem;
+    }
+
+    .main-title {
+        font-size: 1.7rem;
+    }
+
+    .main-subtitle {
+        font-size: .9rem;
+    }
+
+    .metric-card {
+        min-height: 115px;
+        padding: 15px;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    .content-card {
+        padding: 14px;
+    }
+}
+
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .block-container {
+        width: 100% !important;
+        max-width: none !important;
+        padding-left: .8rem;
+        padding-right: .8rem;
+    }
+
+    .main-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.15rem;
+    }
+
+    .welcome-banner {
+        padding: 13px 15px;
+        font-size: .9rem;
+    }
+}
+
+
+/* =========================================================
+   STREAMLIT MAIN CONTENT WIDTH FIX
+   ========================================================= */
+
+/*
+   Streamlit changes its layout when the sidebar is collapsed.
+   These rules prevent old fixed-width spacing from remaining.
+*/
+
+[data-testid="stAppViewContainer"] {
+    width: 100%;
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    width: 100%;
+}
+
+[data-testid="stMainBlockContainer"] {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+
+/* =========================================================
+   REMOVE UNWANTED HORIZONTAL SPACE
+   ========================================================= */
+
+[data-testid="stMainBlockContainer"] > div {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   FULL WIDTH COLUMNS
+   ========================================================= */
+
+[data-testid="stHorizontalBlock"] {
+    width: 100%;
+}
+
+
+/* =========================================================
+   SMOOTH LAYOUT TRANSITION
+   ========================================================= */
+
+[data-testid="stAppViewContainer"],
+[data-testid="stMainBlockContainer"],
+.block-container {
+    transition:
+        width 0.2s ease,
+        max-width 0.2s ease,
+        padding 0.2s ease;
+}
 </style>
 """, unsafe_allow_html=True)
 
