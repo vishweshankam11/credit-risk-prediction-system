@@ -5,8 +5,8 @@ Usage:
     python setup_admin.py
 """
 
-import database as db
 import getpass
+import database as db
 
 
 # ============================================================
@@ -27,11 +27,41 @@ DB_CONFIG = {
 
 
 # ============================================================
-# NEW ADMIN
+# GET NEW ADMIN DETAILS
 # ============================================================
 
-USERNAME = "vishu720"
-PASSWORD = "vishweshankam"
+USERNAME = input(
+    "\nEnter new admin username: "
+).strip()
+
+PASSWORD = getpass.getpass(
+    "Enter new admin password (hidden as you type): "
+).strip()
+
+CONFIRM_PASSWORD = getpass.getpass(
+    "Confirm new admin password: "
+).strip()
+
+
+# ============================================================
+# BASIC VALIDATION
+# ============================================================
+
+if not USERNAME:
+    print("\n❌ Username cannot be empty.")
+    raise SystemExit(1)
+
+if not PASSWORD:
+    print("\n❌ Password cannot be empty.")
+    raise SystemExit(1)
+
+if PASSWORD != CONFIRM_PASSWORD:
+    print("\n❌ Passwords do not match.")
+    raise SystemExit(1)
+
+if len(PASSWORD) < 6:
+    print("\n❌ Password must contain at least 6 characters.")
+    raise SystemExit(1)
 
 
 # ============================================================
@@ -44,14 +74,25 @@ if __name__ == "__main__":
 
     try:
 
+        # ----------------------------------------------------
+        # INITIALIZE DATABASE
+        # ----------------------------------------------------
+
         db.init_db(DB_CONFIG)
 
-        # Check whether username already exists
+        # ----------------------------------------------------
+        # CHECK WHETHER USERNAME ALREADY EXISTS
+        # ----------------------------------------------------
+
         conn = db.get_connection(DB_CONFIG)
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT id, username FROM admins WHERE username = %s",
+            """
+            SELECT id, username
+            FROM admins
+            WHERE username = %s
+            """,
             (USERNAME,)
         )
 
@@ -74,37 +115,40 @@ if __name__ == "__main__":
                 "No new account was created."
             )
 
-        # ----------------------------------------------------
-        # CREATE NEW USER
-        # ----------------------------------------------------
-
-        else:
-
-            print(
-                f"\nCreating admin account '{USERNAME}'..."
-            )
-
-            db.create_admin(
-                DB_CONFIG,
-                USERNAME,
-                PASSWORD
-            )
-
-            print(
-                f"\n✅ Admin account '{USERNAME}' "
-                "created successfully!"
-            )
+            raise SystemExit(0)
 
         # ----------------------------------------------------
-        # VERIFY
+        # CREATE NEW ADMIN
+        # ----------------------------------------------------
+
+        print(
+            f"\nCreating admin account '{USERNAME}'..."
+        )
+
+        db.create_admin(
+            DB_CONFIG,
+            USERNAME,
+            PASSWORD
+        )
+
+        print(
+            f"\n✅ Admin account '{USERNAME}' "
+            "created successfully!"
+        )
+
+        # ----------------------------------------------------
+        # VERIFY ACCOUNT EXISTS
         # ----------------------------------------------------
 
         conn = db.get_connection(DB_CONFIG)
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT id, username, created_at "
-            "FROM admins WHERE username = %s",
+            """
+            SELECT id, username, created_at
+            FROM admins
+            WHERE username = %s
+            """,
             (USERNAME,)
         )
 
@@ -113,7 +157,7 @@ if __name__ == "__main__":
         cursor.close()
         conn.close()
 
-        print("\n=== Verification ===")
+        print("\n=== Account Verification ===")
 
         if user:
 
@@ -128,19 +172,38 @@ if __name__ == "__main__":
                 "❌ Account was not found after creation."
             )
 
+            raise SystemExit(1)
+
+        # ----------------------------------------------------
+        # VERIFY USERNAME + PASSWORD
+        # ----------------------------------------------------
+
+        print("\n=== Password Verification Test ===")
+
+        result = db.verify_admin(
+            DB_CONFIG,
+            USERNAME,
+            PASSWORD
+        )
+
+        if result:
+
+            print(
+                "✅ Username and password are CORRECT."
+            )
+
+            print(
+                f"✅ Admin '{USERNAME}' can now log in."
+            )
+
+        else:
+
+            print(
+                "❌ Username exists, but password "
+                "verification failed."
+            )
+
     except Exception as e:
 
         print("\n❌ Error:")
         print(e)
-        print("\n=== Password Verification Test ===")
-
-result = db.verify_admin(
-    DB_CONFIG,
-    "vishu720",
-    "vishweshankam"
-)
-
-if result:
-    print("✅ Username and password are CORRECT.")
-else:
-    print("❌ Username exists, but password is NOT correct.")
