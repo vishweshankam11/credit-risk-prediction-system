@@ -32,15 +32,15 @@ st.markdown("""
 
 .main {
     background: #070d16;
+    width: 100% !important;
 }
 
-/* Main content - expands with available screen width */
 .block-container {
     width: 100% !important;
     max-width: none !important;
-    padding: 4.5rem 2.2rem 2.5rem;
-    margin: 0 auto;
-    box-sizing: border-box;
+    padding: 4.5rem 2.2rem 2.5rem !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
 }
 
 #MainMenu,
@@ -54,13 +54,51 @@ hr {
 
 
 /* =========================================================
+   STREAMLIT MAIN CONTENT - FULL WIDTH
+   ========================================================= */
+
+/* Main application wrapper */
+[data-testid="stAppViewContainer"] {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* Main content area */
+[data-testid="stAppViewContainer"] > .main {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+/* Main block container */
+[data-testid="stMainBlockContainer"] {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Inner block container */
+[data-testid="stMainBlockContainer"] > div {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
    SIDEBAR
    ========================================================= */
 
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #172235 0%, #101827 100%);
+    background: linear-gradient(
+        180deg,
+        #172235 0%,
+        #101827 100%
+    );
     border-right: 1px solid #334155;
-    min-width: 250px;
 }
 
 section[data-testid="stSidebar"] > div {
@@ -109,7 +147,11 @@ section[data-testid="stSidebar"] hr {
    ========================================================= */
 
 .user-card {
-    background: linear-gradient(135deg, #f8fbff, #dcecff);
+    background: linear-gradient(
+        135deg,
+        #f8fbff,
+        #dcecff
+    );
     border: 1px solid #60a5fa;
     border-radius: 15px;
     padding: 18px;
@@ -146,6 +188,7 @@ section[data-testid="stSidebar"] hr {
    ========================================================= */
 
 section[data-testid="stSidebar"] .stButton > button {
+    width: 100%;
     background: rgba(20, 30, 47, .75);
     color: #f8fafc;
     border: 1px solid #334155;
@@ -165,7 +208,11 @@ section[data-testid="stSidebar"] .stButton > button:hover {
 }
 
 section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, #1675ee, #1765d1);
+    background: linear-gradient(
+        135deg,
+        #1675ee,
+        #1765d1
+    );
     border-color: #3987ff;
     color: #fff;
 }
@@ -198,7 +245,15 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
    ========================================================= */
 
 .welcome-banner {
-    background: linear-gradient(90deg, #092c22, #0c3c2c);
+    width: 100%;
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        90deg,
+        #092c22,
+        #0c3c2c
+    );
+
     border: 1px solid #198b4b;
     border-radius: 11px;
     padding: 17px 21px;
@@ -214,6 +269,9 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
    ========================================================= */
 
 .metric-card {
+    width: 100%;
+    box-sizing: border-box;
+
     min-height: 132px;
     border-radius: 14px;
     padding: 19px 20px;
@@ -228,22 +286,38 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
 }
 
 .metric-blue {
-    background: linear-gradient(135deg, #f5faff, #dcecff);
+    background: linear-gradient(
+        135deg,
+        #f5faff,
+        #dcecff
+    );
     border-color: #63a5fa;
 }
 
 .metric-red {
-    background: linear-gradient(135deg, #fff7f7, #ffe2e5);
+    background: linear-gradient(
+        135deg,
+        #fff7f7,
+        #ffe2e5
+    );
     border-color: #fb7185;
 }
 
 .metric-green {
-    background: linear-gradient(135deg, #f7fff9, #ddf8e4);
+    background: linear-gradient(
+        135deg,
+        #f7fff9,
+        #ddf8e4
+    );
     border-color: #66d88c;
 }
 
 .metric-purple {
-    background: linear-gradient(135deg, #fbf9ff, #eee5ff);
+    background: linear-gradient(
+        135deg,
+        #fbf9ff,
+        #eee5ff
+    );
     border-color: #b58ae8;
 }
 
@@ -282,7 +356,15 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
    ========================================================= */
 
 .content-card {
-    background: linear-gradient(145deg, #111a28, #0d1521);
+    width: 100%;
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        145deg,
+        #111a28,
+        #0d1521
+    );
+
     border: 1px solid #2e3c50;
     border-radius: 12px;
     padding: 17px 19px;
@@ -387,7 +469,15 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
    ========================================================= */
 
 .risk-high {
-    background: linear-gradient(135deg, #450a0a, #7f1d1d);
+    width: 100%;
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        135deg,
+        #450a0a,
+        #7f1d1d
+    );
+
     border: 1px solid #ef4444;
     border-radius: 16px;
     padding: 1.5rem;
@@ -396,7 +486,15 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
 }
 
 .risk-low {
-    background: linear-gradient(135deg, #052e16, #14532d);
+    width: 100%;
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        135deg,
+        #052e16,
+        #14532d
+    );
+
     border: 1px solid #22c55e;
     border-radius: 16px;
     padding: 1.5rem;
@@ -421,7 +519,15 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
    ========================================================= */
 
 .info-card {
-    background: linear-gradient(145deg, #111a28, #0d1521);
+    width: 100%;
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        145deg,
+        #111a28,
+        #0d1521
+    );
+
     border: 1px solid #334155;
     border-radius: 14px;
     padding: 1.2rem;
@@ -458,9 +564,20 @@ label {
 }
 
 div[data-testid="stDataFrame"] {
+    width: 100% !important;
     border: 1px solid #334155;
     border-radius: 10px;
     overflow: hidden;
+}
+
+
+/* =========================================================
+   STREAMLIT COLUMNS
+   ========================================================= */
+
+[data-testid="stHorizontalBlock"] {
+    width: 100% !important;
+    max-width: none !important;
 }
 
 
@@ -469,6 +586,7 @@ div[data-testid="stDataFrame"] {
    ========================================================= */
 
 .footer {
+    width: 100%;
     text-align: center;
     color: #64748b;
     font-size: .8rem;
@@ -503,52 +621,50 @@ div[data-testid="stDataFrame"] {
 
 
 /* =========================================================
-   RESPONSIVE MAIN CONTENT
+   DESKTOP
    ========================================================= */
 
-/* Large screens */
-@media (min-width: 1200px) {
+@media (min-width: 769px) {
 
     .block-container {
         width: 100% !important;
         max-width: none !important;
-        padding-left: 2.5rem;
-        padding-right: 2.5rem;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
-}
 
-
-/* Medium screens */
-@media (max-width: 1199px) {
-
-    .block-container {
+    [data-testid="stMainBlockContainer"] {
         width: 100% !important;
         max-width: none !important;
-        padding-left: 1.8rem;
-        padding-right: 1.8rem;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
-    .main-title {
-        font-size: 2rem;
-    }
-
-    .metric-value {
-        font-size: 1.7rem;
+    [data-testid="stAppViewContainer"] > .main {
+        width: 100% !important;
     }
 }
 
 
-/* Tablet */
+/* =========================================================
+   TABLET
+   ========================================================= */
+
 @media (max-width: 768px) {
 
     .block-container {
         width: 100% !important;
         max-width: none !important;
-        padding: 4rem 1rem 2rem;
+        padding: 4rem 1rem 2rem !important;
+    }
+
+    [data-testid="stMainBlockContainer"] {
+        width: 100% !important;
+        max-width: none !important;
     }
 
     .main-title {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
     }
 
     .main-subtitle {
@@ -570,14 +686,22 @@ div[data-testid="stDataFrame"] {
 }
 
 
-/* Mobile */
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 480px) {
 
     .block-container {
         width: 100% !important;
         max-width: none !important;
-        padding-left: .8rem;
-        padding-right: .8rem;
+        padding-left: .8rem !important;
+        padding-right: .8rem !important;
+    }
+
+    [data-testid="stMainBlockContainer"] {
+        width: 100% !important;
+        max-width: none !important;
     }
 
     .main-title {
@@ -592,61 +716,6 @@ div[data-testid="stDataFrame"] {
         padding: 13px 15px;
         font-size: .9rem;
     }
-}
-
-
-/* =========================================================
-   STREAMLIT MAIN CONTENT WIDTH FIX
-   ========================================================= */
-
-/*
-   Streamlit changes its layout when the sidebar is collapsed.
-   These rules prevent old fixed-width spacing from remaining.
-*/
-
-[data-testid="stAppViewContainer"] {
-    width: 100%;
-}
-
-[data-testid="stAppViewContainer"] > .main {
-    width: 100%;
-}
-
-[data-testid="stMainBlockContainer"] {
-    width: 100% !important;
-    max-width: none !important;
-}
-
-
-/* =========================================================
-   REMOVE UNWANTED HORIZONTAL SPACE
-   ========================================================= */
-
-[data-testid="stMainBlockContainer"] > div {
-    max-width: 100%;
-}
-
-
-/* =========================================================
-   FULL WIDTH COLUMNS
-   ========================================================= */
-
-[data-testid="stHorizontalBlock"] {
-    width: 100%;
-}
-
-
-/* =========================================================
-   SMOOTH LAYOUT TRANSITION
-   ========================================================= */
-
-[data-testid="stAppViewContainer"],
-[data-testid="stMainBlockContainer"],
-.block-container {
-    transition:
-        width 0.2s ease,
-        max-width 0.2s ease,
-        padding 0.2s ease;
 }
 </style>
 """, unsafe_allow_html=True)
