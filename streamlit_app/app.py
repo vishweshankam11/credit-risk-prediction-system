@@ -991,8 +991,9 @@ if not st.session_state.logged_in:
                         st.rerun()
                     else:
                         st.error("Invalid username or password.")
-                except Exception:
+                except Exception as e:
                     st.error("Unable to connect to the authentication service.")
+                    st.exception(e)
     st.markdown("""
     <div class="footer">🔒 Authorized Access Only &nbsp;•&nbsp; Credit Risk Assessment Platform</div>
     """,unsafe_allow_html=True)

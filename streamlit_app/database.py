@@ -10,11 +10,13 @@ Features:
 - Admin authentication
 - Prediction storage
 - Prediction history
+- Optimized dashboard queries
 """
 
 import pymysql
 import bcrypt
 import ssl
+
 from datetime import datetime
 from dbutils.pooled_db import PooledDB
 
@@ -46,6 +48,7 @@ def get_pool(config):
 
         _pool = PooledDB(
             creator=pymysql,
+
             mincached=1,
             maxcached=5,
             maxconnections=10,
@@ -92,6 +95,8 @@ def get_connection(config):
 def init_db(config):
     """
     Create required tables if they do not exist.
+
+    Existing tables and data are not deleted.
     """
 
     conn = get_connection(config)
@@ -100,9 +105,9 @@ def init_db(config):
 
         cursor = conn.cursor()
 
-        # ----------------------------------------------------
+        # ====================================================
         # PREDICTIONS TABLE
-        # ----------------------------------------------------
+        # ====================================================
 
         cursor.execute(
             """
@@ -148,9 +153,9 @@ def init_db(config):
             """
         )
 
-        # ----------------------------------------------------
+        # ====================================================
         # ADMINS TABLE
-        # ----------------------------------------------------
+        # ====================================================
 
         cursor.execute(
             """
@@ -403,7 +408,7 @@ def insert_prediction(
 
 def get_all_predictions(config):
     """
-    Fetch prediction history.
+    Fetch complete prediction history.
 
     Most recent predictions are returned first.
     """
